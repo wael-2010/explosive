@@ -11,6 +11,13 @@ public class MyItems {
 
     public static final Item NITRIC_ACID = registerItem("nitric_acid", new Item(new Item.Settings()));
 
+    public static final Item SULFRUIC_ACID = registerItem("sulfuric _acid", new Item(new Item.Settings()));
+
+    public static final Item SPONGE_EXPLOSIVE = registerItem("sponge_explosive", new Item(new Item.Settings()));
+
+    public static final Item DIRT_EXPLOSIVE = registerItem("stone_explosive", new Item(new Item.Settings()));
+
+
 
     private static Item registerItem(String name, Item item) {
 
@@ -19,6 +26,7 @@ public class MyItems {
     public static void registerMyItems(){
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.INGREDIENTS).register(entries -> {
             entries.add(NITRIC_ACID);
+            entries.add(SULFRUIC_ACID);
         });
     }
 
