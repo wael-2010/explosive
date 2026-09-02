@@ -20,6 +20,8 @@
 		],
 		"fabric-datagen": [
 			"rainy.explosive.ExplosiveDataGenerator"
+		],
+		"client": ["rainy.explosive.ExplosiveClient"
 		]
 	},
 	"mixins": [
