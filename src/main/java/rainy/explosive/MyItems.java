@@ -7,6 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 import rainy.Ability.DirtAbility;
+import rainy.Ability.SpongeAbility;
 
 public class MyItems {
 
@@ -16,7 +17,7 @@ public class MyItems {
 
     public static final Item SULFRUIC_ACID = registerItem("sulfuric_acid", new Item(new Item.Settings()));
 
-    public static final Item SPONGE_EXPLOSIVE = registerItem("sponge_explosive", new Item(new Item.Settings()));
+    public static final Item SPONGE_EXPLOSIVE = registerItem("sponge_explosive", new SpongeAbility(new Item.Settings()));
 
     public static final Item DIRT_EXPLOSIVE = registerItem("dirt_explosive", new DirtAbility(new Item.Settings()));
 
