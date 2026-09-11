@@ -62,10 +62,10 @@ public class IronAbility extends Item {
                     if (world.getBlockState(pos).isAir()) {
                         continue;
                     }
-                    if (!world.getBlockState(pos).isOf(Blocks.IRON_ORE)) {
+                    if (!world.getBlockState(pos).isOf(Blocks.IRON_ORE)
+                            && !world.getBlockState(pos).isOf(Blocks.DEEPSLATE_IRON_ORE)) {
                         world.breakBlock(pos, true, user);
-                    }
-            }
+                    }            }
 
         }
     }
