@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:smithing_transform",
+  "group": "explosive",
+  "base": {
+    "item": "minecraft:blaze_powder"
+  },
+  "addition": {
+    "item": "minecraft:potion"
+  },
+  "template": {
+    "item": "explosive:nitric_powder"
+  },
+  "result": {
+    "id": "explosive:nitric_acid",
+    "count": 1
+  }
+}

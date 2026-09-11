@@ -1,6 +1,9 @@
 {
   "item.explosive.nitric_acid" : " Nitric Acid ",
-  "item.explosive.sulfric_acid" : " Sulfric Acid",
+  "item.explosive.nitric_powder": " Nitric Powder ",
+  "item.explosive.sulfuric_acid" : " Sulfric Acid",
+  "item.explosive.sulfuric_powder" : " Sulfric Powder",
   "item.explosive.sponge_explosive": " Sponge Explosive",
- "item.explosive.dirt_explosive": " Dirt Explosive"
+ "item.explosive.dirt_explosive": " Dirt Explosive",
+  "item.explosive.iron_explosive": " Iron Explosive"
 }

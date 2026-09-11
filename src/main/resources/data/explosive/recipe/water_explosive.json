@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "explosive",
+  "pattern": [
+    "FFF",
+    "XZY",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:potion"
+    },
+    "X": {
+      "item": "explosive:nitric_acid"
+    },
+    "Z": {
+      "item": "minecraft:tnt"
+    },
+    "Y": {
+      "item": "explosive:sulfuric_acid"
+    }
+  },
+  "result": {
+    "id": "explosive:water_explosive",
+    "count": 1
+  }
+}
