@@ -8,51 +8,45 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class DirtAbility extends Item {
+public class IronAbility extends Item {
 
-    private static final int CHARGE = 60; // idk i might INCREASE THIS IN FUTURE PLS REMEMBER FUTURE ME
-    private static final int RADIUS =  5;
+    private final int CHARGE = 40;
+    private static int RADIUS = 5;
 
-    public DirtAbility(Settings settings) {
-
+    public IronAbility(Settings settings) {
         super(settings);
     }
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 72000; // i didnot really get how this work , BUT IM supposed to make it longer than the charge time
+        return 9999;
     }
 
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         player.setCurrentHand(hand);
-
         return TypedActionResult.consume(player.getStackInHand(hand));
     }
-
     @Override
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         if (world.isClient()) {
             return;
         }
-        int POWERINGUP = getMaxUseTime(stack, user) - remainingUseTicks;
+        int LOOOADINGTIMEE = getMaxUseTime(stack, user) - remainingUseTicks;
 
-        if (POWERINGUP >= CHARGE) {
-            explode((ServerWorld) world, user);
+        if (LOOOADINGTIMEE >= CHARGE) {
+            ironing((ServerWorld) world, user);
+
             user.clearActiveItem();
-
             if (user instanceof PlayerEntity player) {
                 stack.decrement(1);
             }
         }
-
     }
-
-    private void explode(ServerWorld world, LivingEntity user) {
+    private void ironing(ServerWorld world, LivingEntity user) {
         BlockPos center = user.getBlockPos();
 
         for (int x = -RADIUS; x <= RADIUS; x++) {
@@ -63,31 +57,17 @@ public class DirtAbility extends Item {
                     if (square > RADIUS * RADIUS) {
                         continue;
                     }
-
-                    BlockPos pos = center.add(x, y, z);
+                    BlockPos pos = center.add(x, y , z);
 
                     if (world.getBlockState(pos).isAir()) {
                         continue;
                     }
-
-                    if (world.getBlockState(pos).getBlock() == Blocks.DIRT) {
-                        continue;
+                    if (!world.getBlockState(pos).isOf(Blocks.IRON_ORE)) {
+                        world.breakBlock(pos, true, user);
                     }
-
-                    if (pos.equals(center)) {
-                        continue;
-                    }
-
-                    world.breakBlock(pos, true, user);
-                }
             }
+
         }
-
-        world.createExplosion(null, user.getX(), user.getY(), user.getZ(), 0.0F, World.ExplosionSourceType.NONE);
     }
-
-    @Override
-    public UseAction getUseAction(ItemStack stack) {
-        return UseAction.BOW;
-    }
-}
+        world.createExplosion(null,user.getX(),user.getY(),user.getZ(),0F,World.ExplosionSourceType.NONE);
+}}
