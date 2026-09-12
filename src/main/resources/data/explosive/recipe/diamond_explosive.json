@@ -9,7 +9,7 @@
   ],
   "key": {
     "F": {
-      "item": "minecraft:diamond_ore"
+      "item": "minecraft:diamond"
     },
     "X": {
       "item": "explosive:nitric_acid"
@@ -22,7 +22,7 @@
     }
   },
   "result": {
-    "id": "explosive:iron_explosive",
+    "id": "explosive:diamond_explosive",
     "count": 1
   }
 }

@@ -6,5 +6,9 @@
   "item.explosive.sponge_explosive": " Sponge Explosive",
  "item.explosive.dirt_explosive": " Dirt Explosive",
   "item.explosive.iron_explosive": " Iron Explosive",
+  "item.explosive.diamond_explosive": " Diamond Explosive",
+  "item.explosive.log_explosive": " Log Explosive",
+  "item.explosive.crop_explosive": " Crops Explosive",
+  "item.explosive.detonator": " Detonator",
   "itemgroup.explosive.explosive_items": " Explosive Items"
 }
