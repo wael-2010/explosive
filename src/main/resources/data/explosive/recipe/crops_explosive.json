@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "explosive",
+  "pattern": [
+    "FFF",
+    "XZY",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:wheat"
+    },
+    "X": {
+      "item": "explosive:nitric_acid"
+    },
+    "Z": {
+      "item": "minecraft:tnt"
+    },
+    "Y": {
+      "item": "explosive:sulfuric_acid"
+    }
+  },
+  "result": {
+    "id": "explosive:iron_explosive",
+    "count": 1
+  }
+}

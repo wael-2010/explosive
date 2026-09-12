@@ -6,13 +6,11 @@ import net.minecraft.item.ItemGroups;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
-import rainy.Ability.DirtAbility;
-import rainy.Ability.IronAbility;
-import rainy.Ability.SpongeAbility;
+import rainy.Ability.*;
 
 public class MyItems {
 
-    public static final Item NITRIC_ACID = registerItem("nitric_acid", new DetonateItem(new Item.Settings()));
+    public static final Item NITRIC_ACID = registerItem("nitric_acid", new Item(new Item.Settings()));
 
     public static final Item NITRIC_POWDER = registerItem("nitric_powder", new Item(new Item.Settings()));
 
@@ -25,6 +23,15 @@ public class MyItems {
     public static final Item DIRT_EXPLOSIVE = registerItem("dirt_explosive", new DirtAbility(new Item.Settings()));
 
     public static final Item IRON_EXPLOSIVE = registerItem("iron_explosive", new IronAbility(new Item.Settings()));
+
+    public static final Item DETONATOR = registerItem("detonator", new DetonateItem(new Item.Settings()));
+
+    public static final Item DIAMOND_EXPLOSIVE = registerItem("diamond_explosive", new DiamondAbility(new Item.Settings()));
+
+    public static final Item LOG_EXPLOSIVE = registerItem("log_explosive", new LogAbility(new Item.Settings()));
+
+    public static final Item CROP_EXPLOSIVE = registerItem("crop_explosive", new CropsAbility(new Item.Settings()));
+
 
 
 

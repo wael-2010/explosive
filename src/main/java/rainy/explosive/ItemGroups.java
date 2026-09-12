@@ -21,6 +21,10 @@ public class ItemGroups {
                         entries.add(MyItems.SPONGE_EXPLOSIVE);
                         entries.add(MyItems.NITRIC_POWDER);
                         entries.add(MyItems.NITRIC_ACID);
+                        entries.add(MyItems.LOG_EXPLOSIVE);
+                        entries.add(MyItems.DIAMOND_EXPLOSIVE);
+                        entries.add(MyItems.CROP_EXPLOSIVE);
+                        entries.add(MyItems.DETONATOR);
                     }))
 
             .build());
