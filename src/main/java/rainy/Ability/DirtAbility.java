@@ -11,14 +11,14 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import rainy.explosive.Detenatorcheck;
 
 public class DirtAbility extends Item {
 
-    private static final int CHARGE = 60; // idk i might INCREASE THIS IN FUTURE PLS REMEMBER FUTURE ME
-    private static final int RADIUS =  5;
+    private static final int CHARGE = 40; // idk i might INCREASE THIS IN FUTURE PLS REMEMBER FUTURE ME
+    private static final int RADIUS = 5;
 
     public DirtAbility(Settings settings) {
-
         super(settings);
     }
 
@@ -30,7 +30,6 @@ public class DirtAbility extends Item {
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
         player.setCurrentHand(hand);
-
         return TypedActionResult.consume(player.getStackInHand(hand));
     }
 
@@ -42,19 +41,19 @@ public class DirtAbility extends Item {
         int POWERINGUP = getMaxUseTime(stack, user) - remainingUseTicks;
 
         if (POWERINGUP >= CHARGE) {
-            explode((ServerWorld) world, user);
-            user.clearActiveItem();
+            ServerWorld serverWorld = (ServerWorld) world;
+            BlockPos center = user.getBlockPos();
 
+            Detenatorcheck.queue(() -> explode(serverWorld, center));
+
+            user.clearActiveItem();
             if (user instanceof PlayerEntity player) {
                 stack.decrement(1);
             }
         }
-
     }
 
-    private void explode(ServerWorld world, LivingEntity user) {
-        BlockPos center = user.getBlockPos();
-
+    private void explode(ServerWorld world, BlockPos center) {
         for (int x = -RADIUS; x <= RADIUS; x++) {
             for (int y = -RADIUS; y <= RADIUS; y++) {
                 for (int z = -RADIUS; z <= RADIUS; z++) {
@@ -69,21 +68,15 @@ public class DirtAbility extends Item {
                     if (world.getBlockState(pos).isAir()) {
                         continue;
                     }
-
                     if (world.getBlockState(pos).getBlock() == Blocks.DIRT) {
                         continue;
                     }
-
-                    if (pos.equals(center)) {
-                        continue;
-                    }
-
-                    world.breakBlock(pos, true, user);
+                    world.breakBlock(pos, true);
                 }
             }
         }
 
-        world.createExplosion(null, user.getX(), user.getY(), user.getZ(), 0.0F, World.ExplosionSourceType.NONE);
+        world.createExplosion(null, center.getX(), center.getY(), center.getZ(), 0.0F, World.ExplosionSourceType.NONE);
     }
 
     @Override

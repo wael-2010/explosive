@@ -5,25 +5,27 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.tag.BlockTags;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.UseAction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import rainy.explosive.Detenatorcheck;
 
-public class IronAbility extends Item {
+public class LogAbility extends Item {
 
-    private final int CHARGE = 40;
-    private static int RADIUS = 5;
+    private static final int CHARGE = 40; // idk i might INCREASE THIS IN FUTURE PLS REMEMBER FUTURE ME
+    private static final int RADIUS = 5;
 
-    public IronAbility(Settings settings) {
+    public LogAbility(Settings settings) {
         super(settings);
     }
 
     @Override
     public int getMaxUseTime(ItemStack stack, LivingEntity user) {
-        return 9999;
+        return 72000; // i didnot really get how this work , BUT IM supposed to make it longer than the charge time
     }
 
     @Override
@@ -37,13 +39,13 @@ public class IronAbility extends Item {
         if (world.isClient()) {
             return;
         }
-        int LOOOADINGTIMEE = getMaxUseTime(stack, user) - remainingUseTicks;
+        int POWERINGUP = getMaxUseTime(stack, user) - remainingUseTicks;
 
-        if (LOOOADINGTIMEE >= CHARGE) {
+        if (POWERINGUP >= CHARGE) {
             ServerWorld serverWorld = (ServerWorld) world;
             BlockPos center = user.getBlockPos();
 
-            Detenatorcheck.queue(() -> ironing(serverWorld, center));
+            Detenatorcheck.queue(() -> explode(serverWorld, center));
 
             user.clearActiveItem();
             if (user instanceof PlayerEntity player) {
@@ -52,7 +54,7 @@ public class IronAbility extends Item {
         }
     }
 
-    private void ironing(ServerWorld world, BlockPos center) {
+    private void explode(ServerWorld world, BlockPos center) {
         for (int x = -RADIUS; x <= RADIUS; x++) {
             for (int y = -RADIUS; y <= RADIUS; y++) {
                 for (int z = -RADIUS; z <= RADIUS; z++) {
@@ -66,13 +68,19 @@ public class IronAbility extends Item {
                     if (world.getBlockState(pos).isAir()) {
                         continue;
                     }
-                    if (!world.getBlockState(pos).isOf(Blocks.IRON_ORE)
-                            && !world.getBlockState(pos).isOf(Blocks.DEEPSLATE_IRON_ORE)) {
-                        world.breakBlock(pos, true);
+                    if (!world.getBlockState(pos).isIn(BlockTags.LOGS)) {
+                        continue;
                     }
+                    world.breakBlock(pos, true);
                 }
             }
         }
-        world.createExplosion(null, center.getX(), center.getY(), center.getZ(), 0F, World.ExplosionSourceType.NONE);
+
+        world.createExplosion(null, center.getX(), center.getY(), center.getZ(), 0.0F, World.ExplosionSourceType.NONE);
+    }
+
+    @Override
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BOW;
     }
 }

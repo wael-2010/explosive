@@ -12,12 +12,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import rainy.explosive.Detenatorcheck;
 
-public class IronAbility extends Item {
+public class DiamondAbility extends Item {
 
     private final int CHARGE = 40;
     private static int RADIUS = 5;
 
-    public IronAbility(Settings settings) {
+    public DiamondAbility(Settings settings) {
         super(settings);
     }
 
@@ -43,7 +43,7 @@ public class IronAbility extends Item {
             ServerWorld serverWorld = (ServerWorld) world;
             BlockPos center = user.getBlockPos();
 
-            Detenatorcheck.queue(() -> ironing(serverWorld, center));
+            Detenatorcheck.queue(() -> diamonding(serverWorld, center));
 
             user.clearActiveItem();
             if (user instanceof PlayerEntity player) {
@@ -52,7 +52,7 @@ public class IronAbility extends Item {
         }
     }
 
-    private void ironing(ServerWorld world, BlockPos center) {
+    private void diamonding(ServerWorld world, BlockPos center) {
         for (int x = -RADIUS; x <= RADIUS; x++) {
             for (int y = -RADIUS; y <= RADIUS; y++) {
                 for (int z = -RADIUS; z <= RADIUS; z++) {
@@ -66,8 +66,8 @@ public class IronAbility extends Item {
                     if (world.getBlockState(pos).isAir()) {
                         continue;
                     }
-                    if (!world.getBlockState(pos).isOf(Blocks.IRON_ORE)
-                            && !world.getBlockState(pos).isOf(Blocks.DEEPSLATE_IRON_ORE)) {
+                    if (!world.getBlockState(pos).isOf(Blocks.DIAMOND_ORE)
+                            && !world.getBlockState(pos).isOf(Blocks.DEEPSLATE_DIAMOND_ORE)) {
                         world.breakBlock(pos, true);
                     }
                 }

@@ -11,11 +11,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import rainy.explosive.Detenatorcheck;
 
 public class SpongeAbility extends Item {
 
     private final int CHARGE = 40;
-    private static int RADIUS = 10;
+    private static int RADIUS = 15;
 
     public SpongeAbility(Settings settings) {
         super(settings);
@@ -31,6 +32,7 @@ public class SpongeAbility extends Item {
         player.setCurrentHand(hand);
         return TypedActionResult.consume(player.getStackInHand(hand));
     }
+
     @Override
     public void usageTick(World world, LivingEntity user, ItemStack stack, int remainingUseTicks) {
         if (world.isClient()) {
@@ -39,7 +41,10 @@ public class SpongeAbility extends Item {
         int LOOOADINGTIMEE = getMaxUseTime(stack, user) - remainingUseTicks;
 
         if (LOOOADINGTIMEE >= CHARGE) {
-            drain((ServerWorld) world, user);
+            ServerWorld serverWorld = (ServerWorld) world;
+            BlockPos center = user.getBlockPos();
+
+            Detenatorcheck.queue(() -> drain(serverWorld, center));
 
             user.clearActiveItem();
             if (user instanceof PlayerEntity player) {
@@ -47,9 +52,8 @@ public class SpongeAbility extends Item {
             }
         }
     }
-    private void drain(ServerWorld world, LivingEntity user) {
-        BlockPos center = user.getBlockPos();
 
+    private void drain(ServerWorld world, BlockPos center) {
         for (int x = -RADIUS; x <= RADIUS; x++) {
             for (int y = -RADIUS; y <= RADIUS; y++) {
                 for (int z = -RADIUS; z <= RADIUS; z++) {
@@ -58,7 +62,7 @@ public class SpongeAbility extends Item {
                     if (square > RADIUS * RADIUS) {
                         continue;
                     }
-                    BlockPos pos = center.add(x, y , z);
+                    BlockPos pos = center.add(x, y, z);
 
                     if (world.getBlockState(pos).isAir()) {
                         continue;
@@ -67,8 +71,8 @@ public class SpongeAbility extends Item {
                         world.setBlockState(pos, Blocks.AIR.getDefaultState());
                     }
                 }
-
             }
         }
-        world.createExplosion(null,user.getX(),user.getY(),user.getZ(),0F,World.ExplosionSourceType.NONE);
-    }}
+        world.createExplosion(null, center.getX(), center.getY(), center.getZ(), 0F, World.ExplosionSourceType.NONE);
+    }
+}

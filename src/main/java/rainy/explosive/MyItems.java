@@ -12,7 +12,7 @@ import rainy.Ability.SpongeAbility;
 
 public class MyItems {
 
-    public static final Item NITRIC_ACID = registerItem("nitric_acid", new Item(new Item.Settings()));
+    public static final Item NITRIC_ACID = registerItem("nitric_acid", new DetonateItem(new Item.Settings()));
 
     public static final Item NITRIC_POWDER = registerItem("nitric_powder", new Item(new Item.Settings()));
 
